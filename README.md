@@ -2,7 +2,7 @@
 
 These files configure a Traefik reverse proxy that sets up LetsEncrypt certs for your public webapps. In my example, I set up a DokuWiki (excellent plain text with markdown wiki app) and a NextCloud server with database (think Dropbox replacement.) Each webapp can have a different subdomain on the domain you've purchased. While doing this I felt there was no really simple guide to achieve this result, and may be a little confusing for other people, so here you go.
 
-I purchase my domain through NameCheap. Whatever domain dealer you go through, you're going to need to set up DNS records properly through them. I recommend NameCheap because of how simple it was, but as long as the provider allows wildcard DNS records it should be safe. In NameCheap I added these:
+I purchased my domain through NameCheap. Whatever domain dealer you go through, you're going to need to set up DNS records properly through them. I recommend NameCheap because of how simple it was, but as long as the provider allows wildcard DNS records it should be safe. In NameCheap I added these:
 
  - Type | Host | Value | TTL
  - A Record | * | IP-ADDRESS | Automatic
