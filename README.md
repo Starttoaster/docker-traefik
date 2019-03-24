@@ -14,9 +14,9 @@ I purchased my domain through NameCheap. Whatever domain dealer you go through, 
 
 In both files, docker-compose.yml and traefik.toml, there are spots in all caps where you need to add your own values. Your domain name, whatever SQL passwords you choose, or your email address for LetsEncrypt.
 
-When you run 'docker-compose up -d' it will automatically create all the necessary folders at filepath /doku/. It does not matter where docker-compose.yml is, however the 'traefik.toml' file needs to be placed in /doku/traefik/. 
+When you run `docker-compose up -d` it will automatically create all the necessary folders at filepath /apps/. It does not matter where docker-compose.yml is, however the 'traefik.toml' file needs to be placed in /apps/traefik/. 
 
-Additionally, you will need to create a file in /doku/traefik/ named 'acme.json'. The file should be empty. Your certificates for various domains will be added automatically. 'touch acme.json'
+Additionally, you will need to create a file in /apps/traefik/ named 'acme.json'. The file should be empty. Your certificates for various domains will be added automatically. `touch acme.json`
 
 
-(If you have trouble setting up your NextCloud server, you'll need to determine the IP address that Docker assigned your database. You should be able to see the IP address of that container with 'docker container inspect nextcloud-db'. The address to configure in NextCloud will be 'IP-Address:3306')
+(If you have trouble setting up your NextCloud server, you'll need to determine the IP address that Docker assigned your database. You should be able to see the IP address of that container with `docker container inspect nextcloud-db`. The address to configure in NextCloud will be 'IP-Address:3306')
