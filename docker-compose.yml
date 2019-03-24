@@ -22,7 +22,7 @@ services:
     image: mprasil/dokuwiki:2018-04-22b
     restart: always
     networks:
-      - asrv
+      - srv
     ports:
       - "8082:80"
     volumes:
