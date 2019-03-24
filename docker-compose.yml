@@ -1,39 +1,39 @@
 version: '2'
 services:
 
-#Dokuwiki
-  wiki:
-    container_name: dokuwiki
-    image: mprasil/dokuwiki:2018-04-22b
-    restart: always
-    networks:
-      - apps
-    ports:
-      - "8082:80"
-    volumes:
-      - /doku/wiki/data/:/dokuwiki/data
-      - /doku/wiki/conf/:/dokuwiki/conf
-      - /doku/wiki/lib/plugins/:/dokuwiki/lib/plugins
-      - /doku/wiki/lib/tpl/:/dokuwiki/lib/tpl
-      - /doku/wiki/logs/:/dokuwiki/var/log
-    labels:
-      - traefik.enable=true
-      - "traefik.frontend.rule=Host:doku.YOUR-WEBSITE.com"
-
 #Reverse Proxy and LetsEncrypt
   traefik:
     container_name: traefik
     image: traefik:alpine
     restart: always
     networks:
-      - apps
+      - srv
     ports:
       - 80:80
       - 443:443
     volumes:
-      - /doku/traefik/traefik.toml:/traefik.toml
+      - /apps/traefik/traefik.toml:/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
-      - /doku/traefik/acme.json:/acme.json
+      - /apps/traefik/acme.json:/acme.json
+
+#Dokuwiki
+  wiki:
+    container_name: dokuwiki
+    image: mprasil/dokuwiki:2018-04-22b
+    restart: always
+    networks:
+      - asrv
+    ports:
+      - "8082:80"
+    volumes:
+      - /apps/wiki/data/:/dokuwiki/data
+      - /apps/wiki/conf/:/dokuwiki/conf
+      - /apps/wiki/lib/plugins/:/dokuwiki/lib/plugins
+      - /apps/wiki/lib/tpl/:/dokuwiki/lib/tpl
+      - /apps/wiki/logs/:/dokuwiki/var/log
+    labels:
+      - traefik.enable=true
+      - "traefik.frontend.rule=Host:doku.YOUR-WEBSITE.com"
 
 #NextCloud
   nextcloud:
@@ -41,13 +41,13 @@ services:
     image: nextcloud
     restart: always
     networks:
-      - apps
+      - srv
     ports:
       - 8081:80
     depends_on:
       - db
     volumes:
-      - /doku/nextcloud/:/var/www/html
+      - /apps/nextcloud/:/var/www/html
     labels:
       - traefik.enable=true
       - "traefik.frontend.rule=Host:cloud.YOUR-WEBSITE.com"
@@ -58,9 +58,9 @@ services:
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     networks:
-      - apps    
+      - srv    
     volumes:
-      - /doku/nextclouddb:/var/lib/mysql
+      - /apps/nextclouddb:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=CHANGEME
       - MYSQL_PASSWORD=CHANGEME
@@ -68,4 +68,4 @@ services:
       - MYSQL_USER=nextcloud
 
 networks:
-   apps:
+   srv:
