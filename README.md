@@ -12,7 +12,9 @@ I purchased my domain through NameCheap. Whatever domain dealer you go through, 
  - A Record | www | IP-ADDRESS | Automatic
  - CNAME Record | www | DOMAIN-NAME | Automatic
  
- Change the values accordingly for your server's IP, and the domain you've purchased!
+Change the values accordingly for your server's IP, and the domain you've purchased! 
+
+NOTE: If you're doing this guide on a server using a private IP address (behind some kind of router), make sure to also open up your router's configuration page and forward ports 80 and 443 to your server's private IP address. While you're here, also make sure your server has a statically assigned private IP. For every router the way to configure this will be different.
 
 **The dirty work**
 
