@@ -18,7 +18,7 @@ I purchased my domain through NameCheap. Whatever domain dealer you go through, 
 
 This one-liner sets up the directory tree and files you'll need for this docker-compose.yml file with the correct permissions and ownership. I put all this at the root of my linux distros for simplicity. Towards the end you need to input your username where it says "YOUR-USER:" but don't delete the colon.
 
-`cd / && sudo mkdir apps && cd apps && sudo touch docker-compose.yml && sudo mkdir traefik wiki nextcloud nextclouddb && cd traefik && sudo touch acme.json traefik.toml && sudo chmod 600 acme.json && cd / && sudo chown -R YOUR-USER: /apps/`
+`cd / && sudo mkdir apps && cd apps && sudo touch docker-compose.yml && sudo mkdir traefik wiki wiki/data wiki/conf wiki/lib wiki/lib/plugins wiki/lib/tpl wiki/logs && cd traefik && sudo touch acme.json traefik.toml && sudo chmod 600 acme.json && cd / && sudo chown -R YOUR-USER: /apps/`
 
 In both files, docker-compose.yml and traefik.toml, there are spots in all caps where you need to add your own values. Your domain name and your email address for LetsEncrypt. You can copy the text from my files over to the requisite files the above one-liner created, while changing those values in all caps.
 
