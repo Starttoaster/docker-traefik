@@ -33,7 +33,8 @@ services:
       - /apps/wiki/logs/:/dokuwiki/var/log
     labels:
       - traefik.enable=true
-      - "traefik.frontend.rule=Host:doku.YOUR-WEBSITE.com"
+      - "traefik.frontend.rule=Host:SUB.DOMAIN.TLD"
+# Change the line after Host:   ex. doku.myawesomewebsite.com
 
 networks:
    srv:
