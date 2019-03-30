@@ -35,37 +35,5 @@ services:
       - traefik.enable=true
       - "traefik.frontend.rule=Host:doku.YOUR-WEBSITE.com"
 
-#NextCloud
-  nextcloud:
-    container_name: nextcloud
-    image: nextcloud
-    restart: always
-    networks:
-      - srv
-    ports:
-      - 8081:80
-    depends_on:
-      - db
-    volumes:
-      - /apps/nextcloud/:/var/www/html
-    labels:
-      - traefik.enable=true
-      - "traefik.frontend.rule=Host:cloud.YOUR-WEBSITE.com"
-
-  db:
-    container_name: nextcloud-db
-    image: mariadb
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
-    restart: always
-    networks:
-      - srv    
-    volumes:
-      - /apps/nextclouddb:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=CHANGEME
-      - MYSQL_PASSWORD=CHANGEME
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-
 networks:
    srv:
