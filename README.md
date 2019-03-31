@@ -14,8 +14,6 @@ I purchased my domain through NameCheap. Whatever domain dealer you go through, 
  
 Change the values accordingly for your server's IP, and the domain you've purchased! 
 
-NOTE: If you're doing this guide on a server using a private IP address (behind some kind of router), make sure to also open up your router's configuration page and forward ports 80 and 443 to your server's private IP address. While you're here, also make sure your server has a statically assigned private IP. For every router the way to configure this will be different.
-
 **The dirty work**
 
 This one-liner sets up the directory tree and files you'll need for this docker-compose.yml file with the correct permissions and ownership. I put all this at the root of my linux distros for simplicity. Towards the end you need to input your username where it says "YOUR-USER:" but don't delete the colon.
@@ -25,3 +23,16 @@ This one-liner sets up the directory tree and files you'll need for this docker-
 In both files, docker-compose.yml and traefik.toml, there are spots in all caps where you need to add your own values. Your domain name and your email address for LetsEncrypt. You can copy the text from my files over to the requisite files the above one-liner created, while changing those values in all caps.
 
 You should then be ready to run `docker-compose up -d` and bring up your apps. If you want to add more or other apps to the docker-compose file, you simply need to add the labels section to each service.
+
+
+**For home networks and servers using private IP addresses**
+
+If you've done this guide on a server using a private IP address (behind some kind of router), make sure to also open up your router's configuration page and forward ports 80 and 443 to your server's private IP address. I cannot instruct on how to do this as each router has different configuration pages, but just search Google for your router + "port forwarding". While you're here, also make sure your server has a statically assigned private IP. This will save a great deal of headache if your server ever gets rebooted and assigned a new IP from your DHCP pool.
+
+**For home networks extra credit**
+
+Internet service providers do not typically assign static public IP addresses to residential home users. You may find one day that your cable modem/router was reset for some reason. After the modem/router came back online, it was potentially assigned a new public IP address by your ISP's DHCP. In this instance you have two options:
+
+1: Manually find your new public IP address, (Go to: https://diagnostic.opendns.com/myip), and change the IPADDRESS sections to match your new IP address on your DNS A Records with whoever your DNS provider is. Mine being Namecheap's Basic DNS.
+
+2: Set up Dynamic DNS (DDNS). DDNS runs a minimal web application from within your home server that periodically sends an update of what IP address you're currently using to your DNS provider. It authenticates to the DNS provider via a passkey that is assigned by the DNS provider, and if your IP address ever receives a change the DNS provider will update their "A+ Records" automatically. I recommend following the setup instructions here: https://github.com/qdm12/ddns-updater
