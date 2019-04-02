@@ -14,11 +14,26 @@ I purchased my domain through NameCheap. Whatever domain dealer you go through, 
  
 Change the values accordingly for your server's IP, and the domain you've purchased! 
 
-**The dirty work**
+# **The dirty work -- Setting up the files**
+
+For this you have two options. First being to use a bash setup script in this repo, the second is to run a one-liner I provided. The benefit of the script is that it also adds the necessary text to the compose and traefik config files.
+
+## Option 1: Setup Script method
+
+ 1. Clone this github repo to anywhere on your server. `git clone https://github.com/Starttoaster/Traefik-in-Docker-Compose.git`
+
+ 2. Next you will need to enter the repo directory and chmod the script file to make it runnable: `chmod u+x script.sh`
+
+ 3. Run the script with: `./script.sh`  ...The script created all necessary directories and files with the correct permissions at the root of the filesystem. `cd /apps` to view this directory we have created.
+
+
+## Option 2: Manual setup
 
 This one-liner sets up the directory tree and files you'll need for this docker-compose.yml file with the correct permissions and owned by the current user. I put all this at the root of my linux distros for simplicity.
 
 `sudo mkdir /apps /apps/traefik /apps/wiki /apps/wiki/data /apps/wiki/conf /apps/wiki/lib /apps/wiki/lib/plugins /apps/wiki/lib/tpl /apps/wiki/logs && sudo touch /apps/docker-compose.yml /apps/traefik/acme.json /apps/traefik/traefik.toml && sudo chmod 600 /apps/traefik/acme.json && sudo chown -R $USER: /apps/`
+
+## Post-setup steps
 
 In both files, docker-compose.yml and traefik.toml, there are spots in all caps where you need to add your own values. Your domain name and your email address for LetsEncrypt. You can copy the text from my files over to the requisite files the above one-liner created, while changing those values in all caps.
 
