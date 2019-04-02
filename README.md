@@ -16,9 +16,9 @@ Change the values accordingly for your server's IP, and the domain you've purcha
 
 **The dirty work**
 
-This one-liner sets up the directory tree and files you'll need for this docker-compose.yml file with the correct permissions and ownership. I put all this at the root of my linux distros for simplicity. Towards the end you need to input your username where it says "YOUR-USER:" but don't delete the colon.
+This one-liner sets up the directory tree and files you'll need for this docker-compose.yml file with the correct permissions and owned by the current user. I put all this at the root of my linux distros for simplicity.
 
-`cd / && sudo mkdir apps && cd apps && sudo touch docker-compose.yml && sudo mkdir traefik wiki wiki/data wiki/conf wiki/lib wiki/lib/plugins wiki/lib/tpl wiki/logs && cd traefik && sudo touch acme.json traefik.toml && sudo chmod 600 acme.json && cd / && sudo chown -R YOUR-USER: /apps/`
+`sudo mkdir /apps /apps/traefik /apps/wiki /apps/wiki/data /apps/wiki/conf /apps/wiki/lib /apps/wiki/lib/plugins /apps/wiki/lib/tpl /apps/wiki/logs && sudo touch /apps/docker-compose.yml /apps/traefik/acme.json /apps/traefik/traefik.toml && sudo chmod 600 /apps/traefik/acme.json && sudo chown -R $USER: /apps/`
 
 In both files, docker-compose.yml and traefik.toml, there are spots in all caps where you need to add your own values. Your domain name and your email address for LetsEncrypt. You can copy the text from my files over to the requisite files the above one-liner created, while changing those values in all caps.
 
