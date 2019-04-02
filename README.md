@@ -24,7 +24,7 @@ For this you have two options. First being to use a bash setup script in this re
 
  2. Next you will need to enter the repo directory and chmod the script file to make it runnable: `chmod u+x script.sh`
 
- 3. Run the script with: `./script.sh`  ...The script created all necessary directories and files with the correct permissions at the root of the filesystem. `cd /apps` to view this directory we have created.
+ 3. Run the script with: `./script.sh`  ...The script created all necessary directories and files with the correct permissions at the root of the filesystem.
 
 
 ## Option 2: Manual setup
