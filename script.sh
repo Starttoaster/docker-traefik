@@ -90,3 +90,5 @@ onHostRule = true
   [acme.httpChallenge]
   entryPoint = "http"
 EOF
+
+cd /apps
