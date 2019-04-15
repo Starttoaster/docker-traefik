@@ -1,9 +1,18 @@
-#!/bin/bash
+#!/bin/sh
 
+#Ask for user input
+echo "What is your domain name? "
+read domain
+echo -e "\nWhat is your email? "
+read email
+echo -e "\nThis script is going to set up your docker-compose.yml document and Traefik configuration in /apps at your Linux root directory. It also sets up an example DokuWiki container with the requisite Traefik labels for a subdomain under the reverse-proxy."
+
+#Set up directories, files, permissions, and ownership
 sudo mkdir /apps /apps/traefik /apps/wiki /apps/wiki/data /apps/wiki/conf /apps/wiki/lib /apps/wiki/lib/plugins /apps/wiki/lib/tpl /apps/wiki/logs
 sudo touch /apps/docker-compose.yml /apps/traefik/acme.json /apps/traefik/traefik.toml
 sudo chmod 600 /apps/traefik/acme.json
 sudo chown -R $USER: /apps/
+cd /apps
 
 cat <<EOF >/apps/docker-compose.yml
 version: '2'
@@ -41,8 +50,7 @@ services:
       - /apps/wiki/logs/:/dokuwiki/var/log
     labels:
       - traefik.enable=true
-      - "traefik.frontend.rule=Host:SUB.DOMAIN.TLD"
-# Change the line after Host:   ex. doku.myawesomewebsite.com
+      - "traefik.frontend.rule=Host:doku.$domain"
 
 networks:
    srv:
@@ -61,9 +69,9 @@ networks:
 #   environment:
 #     - DELAY=300
 #     - LISTENINGPORT=8000
-#     - RECORD1=DOMAIN.TLD,*,namecheap,opendns,98da23132wsa54dwdr4524234
-#     - RECORD2=DOMAIN.TLD,@,namecheap,opendns,sdfghrsdfdsfdasadssdadsads
-#     - RECORD3=DOMAIN.TLD,www,namecheap,opendns,234233wasd24daw18dad5f123asd
+#     - RECORD1=$domain,*,namecheap,opendns,98da23132wsa54dwdr4524234
+#     - RECORD2=$domain,@,namecheap,opendns,sdfghrsdfdsfdasadssdadsads
+#     - RECORD3=$domain,www,namecheap,opendns,234233wasd24daw18dad5f123asd
 EOF
 
 cat <<EOF >/apps/traefik/traefik.toml
@@ -78,12 +86,12 @@ cat <<EOF >/apps/traefik/traefik.toml
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "YOURWEBSITE.TLD"
+domain = "$domain"
 exposedByDefault = false
 watch = true
 
 [acme]
-email = "YOUREMAIL@EMAIL.COM"
+email = "$email"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true
@@ -91,4 +99,4 @@ onHostRule = true
   entryPoint = "http"
 EOF
 
-cd /apps
+echo -e "\n\nThis script has completed, please check out your files and run 'docker-compose up -d' to start your docker containers."
