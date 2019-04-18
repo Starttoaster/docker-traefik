@@ -22,7 +22,7 @@ Change the values accordingly for your server's IP, and the domain you've purcha
 
  3. Run the script: `source ./script.sh` 
 
-You should then be ready to run `docker-compose up -d` and bring up your apps. If you want to add more or other apps to the docker-compose file, you simply need to add the labels section to each service and just change the subdomain to what you want its URL to be.
+Once you answer a couple questions, the script should complete and you should then be ready to run `docker-compose up -d` and bring up your apps. If you want to add more or other apps to the docker-compose file, you simply need to add the labels section to each service and just change the subdomain to what you want its URL to be.
 
 # **For home networks and servers using private IP addresses**
 
