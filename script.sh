@@ -5,7 +5,6 @@ echo "What is your domain name? "
 read -r domain
 echo -e "\nWhat is your email? "
 read -r email
-echo -e "\nThis script is going to set up your docker-compose.yml document and Traefik configuration in /apps at your Linux root directory. It also sets up an example DokuWiki container with the requisite Traefik labels for a subdomain under the reverse-proxy."
 
 #Set up directories, files, permissions, and ownership
 sudo mkdir /apps /apps/traefik /apps/wiki /apps/wiki/data /apps/wiki/conf /apps/wiki/lib /apps/wiki/lib/plugins /apps/wiki/lib/tpl /apps/wiki/logs
@@ -98,5 +97,4 @@ onHostRule = true
   [acme.httpChallenge]
   entryPoint = "http"
 EOF
-
-echo -e "\n\nThis script has completed, please check out your files and run 'docker-compose up -d' to start your docker containers."
+echo "This script has set up your docker-compose.yml document and Traefik configuration in /apps at your Linux root directory. It also set up an example DokuWiki container with the requisite Traefik labels for a subdomain under the reverse-proxy. Please check your files, make any needed changes, and run 'docker-compose up -d' to start your containers."
