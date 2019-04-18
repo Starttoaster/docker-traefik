@@ -1,17 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 #Ask for user input
 echo "What is your domain name? "
-read domain
+read -r domain
 echo -e "\nWhat is your email? "
-read email
+read -r email
 echo -e "\nThis script is going to set up your docker-compose.yml document and Traefik configuration in /apps at your Linux root directory. It also sets up an example DokuWiki container with the requisite Traefik labels for a subdomain under the reverse-proxy."
 
 #Set up directories, files, permissions, and ownership
 sudo mkdir /apps /apps/traefik /apps/wiki /apps/wiki/data /apps/wiki/conf /apps/wiki/lib /apps/wiki/lib/plugins /apps/wiki/lib/tpl /apps/wiki/logs
 sudo touch /apps/docker-compose.yml /apps/traefik/acme.json /apps/traefik/traefik.toml
 sudo chmod 600 /apps/traefik/acme.json
-sudo chown -R $USER: /apps/
+sudo chown -R "$USER": /apps/
 cd /apps
 
 cat <<EOF >/apps/docker-compose.yml
