@@ -4,7 +4,7 @@ This script configures a Traefik reverse proxy with LetsEncrypt certs for your p
 
 **Domain Registry + DNS Configuration**
 
-I purchased my domain through NameCheap. Whatever domain dealer you go through, you're going to need to set up DNS records properly through them. I recommend NameCheap because of how simple it was, but as long as the provider allows wildcard DNS records it should be safe. In NameCheap I added these:
+I purchased my domain through NameCheap. Whatever domain dealer you go through, you're going to need to set up DNS records properly through them. I recommend NameCheap because of how simple it was, but I imagine they are all about the same. As long as the provider allows wildcard DNS records you should be good to go. In NameCheap's "Advanced DNS" tab I added these:
 
  - Type | Host | Value | TTL
  - A Record | * | IP-ADDRESS | Automatic
