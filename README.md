@@ -1,6 +1,6 @@
 # Traefik Reverse-Proxy
 
-These files configure a Traefik reverse proxy that sets up LetsEncrypt certs for your public webapps. In my example, I set up a DokuWiki (excellent plain text with markdown wiki app.) While doing this I felt there was no really simple guide to achieve this result, and may be a little confusing for other people, so here you go. I chose not to configure the web interface for Traefik as it is mostly a security vulnerability with no real benefit.
+This script configures a Traefik reverse proxy with LetsEncrypt certs for your public webapps. In my example, I set up a DokuWiki (excellent plain text with markdown wiki app.) While doing this I felt there was no really simple guide to achieve this result, and may be a little confusing for other people, so here you go. I chose not to configure the web interface for Traefik as it is mostly a security vulnerability with no real benefit.
 
 **Domain Registry + DNS Configuration**
 
