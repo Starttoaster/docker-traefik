@@ -40,7 +40,7 @@ services:
     networks:
       - srv
     ports:
-      - "8082:80"
+      - "8080:80"
     volumes:
       - /apps/wiki/data/:/dokuwiki/data
       - /apps/wiki/conf/:/dokuwiki/conf
@@ -74,6 +74,8 @@ networks:
 EOF
 
 cat <<EOF >/apps/traefik/traefik.toml
+defaultEntryPoints = ["http", "https"]
+
 [entryPoints]
   [entryPoints.http]
     address = ":80"
