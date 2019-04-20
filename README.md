@@ -35,3 +35,17 @@ Internet service providers do not typically assign static public IP addresses to
  1. Manually find your new public IP address, (Go to: https://diagnostic.opendns.com/myip), and change the IPADDRESS sections to match your new IP address on your DNS A Records with whoever your DNS provider is. Mine being Namecheap's Basic DNS.
 
  2. Set up Dynamic DNS (DDNS). DDNS runs a minimal web application from within your home server that periodically sends an update of what IP address you're currently using to your DNS provider. It authenticates to the DNS provider via a passkey that is assigned by the DNS provider, and if your IP address ever receives a change the DNS provider will update their "A+ Records" automatically. I recommend following the setup instructions here: https://github.com/qdm12/ddns-updater
+
+# **HTTP Basic Auth**
+
+This is entirely optional. If you would like all of your apps to have an additional layer of protection then you can configure an htpasswd in the traefik.toml file. I have added a conditional in the script that will configure this for you. All you need is an "htpasswd"
+
+**To generate an htpasswd, either:**
+
+ 1. Install the 'apache2-utils' package on your linux distro, and run: `htpasswd -nb user password`
+
+Making sure to replace user with the desired username, and password with the desired password; or
+
+ 2. Visit: `http://www.htaccesstools.com/htpasswd-generator/`
+
+Simply enter your desired username and password, then copy that string and enter it in the script when asked for it.

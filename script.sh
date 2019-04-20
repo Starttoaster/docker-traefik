@@ -5,6 +5,8 @@ echo "What is your domain name? "
 read -r domain
 echo -e "\nWhat is your email? "
 read -r email
+echo
+
 
 #Set up directories, files, permissions, and ownership
 sudo mkdir /apps /apps/traefik /apps/wiki /apps/wiki/data /apps/wiki/conf /apps/wiki/lib /apps/wiki/lib/plugins /apps/wiki/lib/tpl /apps/wiki/logs
@@ -73,6 +75,44 @@ networks:
 #     - RECORD3=$domain,www,namecheap,opendns,234233wasd24daw18dad5f123asd
 EOF
 
+
+read -rp "Would you like to set up a user/pass for all containers behind Traefik (y/n)? " choice
+case ${choice:0:1} in
+        y|Y|yes|Yes|YES )
+echo -e "Please enter your htpasswd string here.. See README for more information about htpasswd strings"
+read -r htpasswd
+
+cat <<EOF >/apps/traefik/traefik.toml
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+      [entryPoints.http.redirect]
+        entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+      [entryPoints.https.tls]
+  [entryPoints.https.auth.basic]
+    users = ["$htpasswd"]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "$domain"
+exposedByDefault = false
+watch = true
+
+[acme]
+email = "$email"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+EOF
+
+        ;;
+        * )
 cat <<EOF >/apps/traefik/traefik.toml
 defaultEntryPoints = ["http", "https"]
 
@@ -99,4 +139,9 @@ onHostRule = true
   [acme.httpChallenge]
   entryPoint = "http"
 EOF
+
+        ;;
+esac
+
 echo "This script has set up your docker-compose.yml document and Traefik configuration in /apps at your Linux root directory. It also set up an example DokuWiki container with the requisite Traefik labels for a subdomain under the reverse-proxy. Please check your files, make any needed changes, and run 'docker-compose up -d' to start your containers."
+
