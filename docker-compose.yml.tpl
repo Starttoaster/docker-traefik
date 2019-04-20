@@ -37,7 +37,7 @@ networks:
    srv:
 
 # OPTIONAL!! Only for if you are configuring Dynamic DNS. This example is assuming you're using namecheap.
-# You should only need to change the DOMAIN.TLD field, and the key at the end to the one provided by Namecheap.
+# You should only need to change the key at the end of each RECORD line to the one provided by Namecheap.
 # You will need to set up three A+ Records with Namecheap that have the same values you put for the regular DNS setup
 # Except the server IP in each A+ Record will be 127.0.0.1, and then will automatically be changed by the below container.
 #
