@@ -25,7 +25,7 @@ sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./docker-compose.yml.tpl >/opt/traefik/docker-
 read -p "Would you like to set up user/password for all containers behind Traefik (y/n)? " -r CHOICE
 case "${CHOICE:0:1}" in
     y|Y)
-        read -p "Please enter your htpasswd string here. See README for more information." -r HTPASSWORD
+        read -p "Please enter your htpasswd string here. See README for more information. " -r HTPASSWORD
         sed -e "s#%%HTPASSWORD%%#${HTPASSWORD}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" -e "s#%%EMAIL%%#${EMAIL}#g" ./traefik-htpasswd.toml.tpl >/opt/traefik/traefik.toml
         ;;
     *)
