@@ -18,7 +18,7 @@ fi
 sudo -- mkdir -p /opt/traefik /opt/wiki/{conf,data,logs} /opt/wiki/lib/{plugins,tpl}
 sudo -- touch /opt/traefik/docker-compose.yml /opt/traefik/acme.json /opt/traefik/traefik.toml
 sudo -- chmod 0600 /opt/traefik/acme.json
-sudo -- chown -R "$USER": /opt/traefik
+sudo -- chown -R "$USER": /opt/traefik /opt/wiki
 
 sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./docker-compose.yml.tpl >/opt/traefik/docker-compose.yml
 
