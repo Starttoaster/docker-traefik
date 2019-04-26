@@ -29,7 +29,8 @@ Change the values accordingly for your server's IP, and the domain you've purcha
 
  3. Change directory: `cd /opt/traefik` 
 
-Once you answer a couple questions, the script should complete and you should then be ready to run `docker-compose up -d` and bring up your apps. 
+Once you answer a couple questions, the script should complete. If you are running on a VPS (cloud server) you should then be ready to run `docker-compose up -d` and bring up your apps.
+If you are self-hosting on a home network then move on to the next sections for post-install steps. 
 If you want to add more or other apps to the docker-compose file, you simply need to add the labels section to each service and just change the subdomain to what you want its URL to be.
 
 ### For home networks and servers using private IP addresses
@@ -39,7 +40,7 @@ forward ports 80 and 443 to your server's private IP address. I cannot instruct 
 router + "port forwarding". While you're here, also make sure your server has a statically assigned private IP. This will save a great deal of headache if your server 
 ever gets rebooted and assigned a new IP from your DHCP pool.
 
-### For home networks extra credit
+### Home networks extra credit: Dynamic DNS
 
 Internet service providers do not typically assign static public IP addresses to residential home users. You may find one day that your cable modem/router was 
 reset for some reason. After the modem/router came back online, it was potentially assigned a new public IP address by your ISP's DHCP. In this instance you have two options:
