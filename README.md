@@ -30,7 +30,7 @@ Change the values accordingly for your server's IP, and the domain you've purcha
  3. Change directory: `cd /opt/traefik` 
 
 Once you answer a couple questions, the script should complete. If you are running on a VPS (cloud server) you should then be ready to run `docker-compose up -d` and bring up your apps.
-If you are self-hosting on a home network then move on to the next sections for post-install steps. 
+If you are self-hosting from home, then move on to the next sections for home networks. 
 If you want to add more or other apps to the docker-compose file, you simply need to add the labels section to each service and just change the subdomain to what you want its URL to be.
 
 ### For home networks and servers using private IP addresses
