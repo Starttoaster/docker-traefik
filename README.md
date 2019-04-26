@@ -62,3 +62,11 @@ Making sure to replace user with the desired username, and password with the des
  2. Visit: `http://www.htaccesstools.com/htpasswd-generator/`
 
 Simply enter your desired username and password, then copy that string and enter it in the script when asked for it.
+
+### Special Thanks
+
+To GitHub user 'qdm12' for their lightweight Dynamic DNS updating docker image. 
+
+To GitHub user 'szepeviktor' for their contributions to this script. 
+
+To Miroslav Prasil for the best DokuWiki docker image on Docker Hub.

@@ -20,8 +20,6 @@ sudo -- touch /opt/traefik/docker-compose.yml /opt/traefik/acme.json /opt/traefi
 sudo -- chmod 0600 /opt/traefik/acme.json
 sudo -- chown -R "$USER": /opt/traefik /opt/wiki
 
-sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.tpl >/opt/traefik/docker-compose.yml
-
 read -p "Would you like to set up user/password for all containers behind Traefik (y/n)? " -r CHOICE
 case "${CHOICE:0:1}" in
     y|Y)
@@ -32,6 +30,18 @@ case "${CHOICE:0:1}" in
         sed -e "s#%%DOMAIN%%#${DOMAIN}#g" -e "s#%%EMAIL%%#${EMAIL}#g" ./tpl/traefik.toml.tpl >/opt/traefik/traefik.toml
         ;;
 esac
+
+read -p "Would you like to set up dynamic DNS? (For advanced users. Works for GoDaddy, Namecheap, Dreamhost, and DuckDNS) (y/n)? " -r CHOICE
+case "${CHOICE:0:1}" in
+    y|Y)
+	sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose-ddns.yml.tpl >/opt/traefik/docker-compose.yml
+	echo "Credit to GitHub user 'qdm12' for this fantastic Dynamic DNS updater."
+        ;;
+    *)
+	sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.tpl >/opt/traefik/docker-compose.yml
+        ;;
+esac
+
 
 cat <<"EOF"
 
