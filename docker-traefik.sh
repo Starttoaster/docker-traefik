@@ -33,8 +33,9 @@ case "${CHOICE:0:1}" in
 				case "${CHOICE:0:1}" in
 					#Layer3-YES
     					y|Y)
+						read -p "Please enter your dynamic DNS password (leave blank if unknown): " -r DNSPASS
 						sed -e "s#%%HTPASSWORD%%#${HTPASSWORD}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" -e "s#%%EMAIL%%#${EMAIL}#g" ./tpl/traefik.toml.all.tpl >/opt/traefik/traefik.toml
-						sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.all.tpl >/opt/traefik/docker-compose.yml
+						sed -e "s#%%DNSPASS%%#${DNSPASS}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.all.tpl >/opt/traefik/docker-compose.yml
 						;;
     					#Layer3-NO
 					*)
@@ -49,8 +50,9 @@ case "${CHOICE:0:1}" in
                			case "${CHOICE:0:1}" in
 					#Layer3-YES
 					y|Y)
+		                                read -p "Please enter your dynamic DNS password (leave blank if unknown): " -r DNSPASS
 						sed -e "s#%%HTPASSWORD%%#${HTPASSWORD}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" -e "s#%%EMAIL%%#${EMAIL}#g" ./tpl/traefik.toml.dash.tpl >/opt/traefik/traefik.toml
-                                                sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.all.tpl >/opt/traefik/docker-compose.yml
+                                                sed -e "s#%%DNSPASS%%#${DNSPASS}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.all.tpl >/opt/traefik/docker-compose.yml
               		          		;;
                 			#Layer3-NO
 					*)
@@ -72,8 +74,9 @@ case "${CHOICE:0:1}" in
                                 case "${CHOICE:0:1}" in
                                         #Layer3-YES
                                         y|Y)
+						read -p "Please enter your dynamic DNS password (leave blank if unknown): " -r DNSPASS
                                                 sed -e "s#%%HTPASSWORD%%#${HTPASSWORD}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" -e "s#%%EMAIL%%#${EMAIL}#g" ./tpl/traefik.toml.passwd.tpl >/opt/traefik/traefik.toml
-                                                sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.ddns.tpl >/opt/traefik/docker-compose.yml
+                                                sed -e "s#%%DNSPASS%%#${DNSPASS}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.ddns.tpl >/opt/traefik/docker-compose.yml
                                                 ;;
                                         #Layer3-NO
                                         *)
@@ -88,8 +91,9 @@ case "${CHOICE:0:1}" in
                                 case "${CHOICE:0:1}" in
                                         #Layer3-YES
                                         y|Y)
+						read -p "Please enter your dynamic DNS password (leave blank if unknown): " -r DNSPASS
                                                 sed -e "s#%%DOMAIN%%#${DOMAIN}#g" -e "s#%%EMAIL%%#${EMAIL}#g" ./tpl/traefik.toml.tpl >/opt/traefik/traefik.toml
-                                                sed -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.ddns.tpl >/opt/traefik/docker-compose.yml
+                                                sed -e "s#%%DNSPASS%%#${DNSPASS}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/docker-compose.yml.ddns.tpl >/opt/traefik/docker-compose.yml
                                                 ;;
                                         #Layer3-NO
                                         *)
@@ -105,7 +109,8 @@ esac
 cat <<"EOF"
 
 This script has set up your docker-compose.yml file and Traefik configuration in your /opt/traefik directory.
-It also set up an example DokuWiki container with the required Traefik labels for a subdomain under the reverse-proxy.
-The configuration files for DokuWiki will be in /opt/wiki after the container is created.
-Please check your files, make any needed changes, and run 'docker-compose up -d' to start your containers.
+It also set up an example DokuWiki container with the required Traefik labels for a subdomain in /opt/wiki.
+If you chose to configure dDNS, ensure that you have followed all instructions from the container's owner: https://github.com/qdm12/ddns-updater
+Make any necessary changes specific to you, and run 'docker-compose up -d' to start your containers.
+And thank you, Quentin McGaw (GitHub: qdm12), for the excellent dynamic DNS image.
 EOF

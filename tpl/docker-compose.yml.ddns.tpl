@@ -44,13 +44,13 @@ services:
     environment:
       - DELAY=300
       - LISTENINGPORT=8000
-      - RECORD1=%%DOMAIN%%,*,namecheap,opendns,ENTER-KEY-HERE
-      - RECORD2=%%DOMAIN%%,@,namecheap,opendns,ENTER-KEY-HERE
-      - RECORD3=%%DOMAIN%%,www,namecheap,opendns,ENTER-KEY-HERE
+      - RECORD1=%%DOMAIN%%,*,namecheap,opendns,%%DNSPASS%%
+      - RECORD2=%%DOMAIN%%,@,namecheap,opendns,%%DNSPASS%%
+      - RECORD3=%%DOMAIN%%,www,namecheap,opendns,%%DNSPASS%%
 #
-# This DDNS image has configuration instructions from the owner here: https://github.com/qdm12/ddns-updater
 # This example is assuming you're using Namecheap DNS as I am.
-# Only the key provided by Namecheap is necessary to be added to the 'RECORD#' lines.
+# This DDNS image has configuration instructions from the owner here: https://github.com/qdm12/ddns-updater
+# If you entered your dynamic DNS password when the script was ran, this should already be properly configured.
 #
 networks:
    srv:
