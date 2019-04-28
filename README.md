@@ -2,7 +2,6 @@
 
 This script configures a Traefik reverse proxy with LetsEncrypt certs for your public webapps. In my example, I set up a DokuWiki (excellent plain text with markdown wiki app.) 
 While doing this I felt there was no really simple guide to achieve this result, and may be a little confusing for other people, so here you go. 
-I chose not to configure the web interface for Traefik as it is mostly a security vulnerability with no real benefit.
 
 ### Domain Registry + DNS Configuration
 
@@ -42,17 +41,25 @@ ever gets rebooted and assigned a new IP from your DHCP pool.
 
 ### Home networks extra credit: Dynamic DNS
 
-Internet service providers do not typically assign static public IP addresses to residential home users. You may find one day that your cable modem/router was 
+Setting up "dDNS" is entirely optional. Internet service providers do not typically assign static public IP addresses to residential home users. You may find one day that your cable modem/router was 
 reset for some reason. After the modem/router came back online, it was potentially assigned a new public IP address by your ISP's DHCP. In this instance you have two options:
 
  1. Manually find your new public IP address, (Go to: https://diagnostic.opendns.com/myip), and change the IPADDRESS sections to match your new IP address on your DNS A Records with whoever your DNS provider is. Mine being Namecheap's Basic DNS.
 
  2. Set up Dynamic DNS (DDNS). DDNS runs a minimal web application from within your home server that periodically sends an update of what IP address you're currently using to your DNS provider. It authenticates to the DNS provider via a passkey that is assigned by the DNS provider, and if your IP address ever receives a change the DNS provider will update their "A+ Records" automatically. I recommend following the setup instructions here: https://github.com/qdm12/ddns-updater
 
+### Traefik Dashboard
+
+This is entirely optional. The Traefik dashboard offers some information about the applications behind your web proxy. I have added a conditional that allows you to automate the configuration of the web dashboard.
+You will need an 'htpasswd' which I have included a section below on how to obtain one. An htpasswd is just a username with a hashed password. See 'To generate an htpasswd' below.
+When the Traefik dashboard is configured, you will just need to enter your username and password in the dialog box that pops up at https://dash.YOUR-DOMAIN.TLD
+
 ### HTTP Basic Auth
 
-This is entirely optional. If you would like all of your apps to have an additional layer of protection then you can configure an htpasswd in the traefik.toml file. 
-I have added a conditional in the script that will configure this for you. All you need is an "htpasswd"
+This is entirely optional. If you would like all of your apps to have an additional layer of protection then you can configure an htpasswd in the traefik.toml file.
+An htpasswd is just a username with a hashed password. 
+I have added a conditional in the script that will configure this for you. All you need is an "htpasswd" to enter when the script asks for it.
+When you want to visit one of your webapps, you will need to enter the username and password you chose in the dialog box that pops up.
 
 #### To generate an htpasswd, either:
 
