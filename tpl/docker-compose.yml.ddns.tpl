@@ -32,7 +32,7 @@ services:
       - /opt/wiki/logs/:/dokuwiki/var/log
     labels:
       - traefik.enable=true
-      - "traefik.frontend.rule=Host:doku.%%DOMAIN%%"
+      - traefik.frontend.rule=Host:doku.%%DOMAIN%%
   # Dynamic DNS
   ddns:
     container_name: ddns
@@ -47,6 +47,9 @@ services:
       - RECORD1=%%DOMAIN%%,*,namecheap,opendns,%%DNSPASS%%
       - RECORD2=%%DOMAIN%%,@,namecheap,opendns,%%DNSPASS%%
       - RECORD3=%%DOMAIN%%,www,namecheap,opendns,%%DNSPASS%%
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:ddns.%%DOMAIN%%
 #
 # This example is assuming you're using Namecheap DNS as I am.
 # This DDNS image has configuration instructions from the owner here: https://github.com/qdm12/ddns-updater

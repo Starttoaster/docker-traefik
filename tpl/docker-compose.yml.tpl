@@ -32,6 +32,6 @@ services:
       - /opt/wiki/logs/:/dokuwiki/var/log
     labels:
       - traefik.enable=true
-      - "traefik.frontend.rule=Host:doku.%%DOMAIN%%"
+      - traefik.frontend.rule=Host:doku.%%DOMAIN%%
 networks:
    srv:
