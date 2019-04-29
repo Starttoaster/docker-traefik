@@ -38,7 +38,8 @@ services:
     container_name: ddns
     image: qmcgaw/ddns-updater
     restart: unless-stopped
-    network_mode: bridge
+    networks:
+      - srv
     ports:
       - "8000:8000"
     environment:

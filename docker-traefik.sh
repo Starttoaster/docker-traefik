@@ -3,7 +3,6 @@
 # Configure Traefik Reverse-Proxy.
 #
 
-# User input
 read -p "What is your domain name? " -r DOMAIN
 read -p "What is your email address? " -r EMAIL
 echo
@@ -13,13 +12,11 @@ if [ -z "$DOMAIN" ] || [ -z "$EMAIL" ]; then
     exit 1
 fi
 
-# Directory and file permissions, and ownership
 sudo -- mkdir -p /opt/traefik /opt/wiki/{conf,data,logs} /opt/wiki/lib/{plugins,tpl}
 sudo -- touch /opt/traefik/docker-compose.yml /opt/traefik/acme.json /opt/traefik/traefik.toml
 sudo -- chmod 0600 /opt/traefik/acme.json
 sudo -- chown -R "$USER": /opt/traefik /opt/wiki
 
-#Layer1
 read -p "Would you like to set up the Traefik web user interface? Not necessary but looks pretty.. (y/n)? " -r CHOICE
 case "${CHOICE:0:1}" in
 	#Layer1-YES
