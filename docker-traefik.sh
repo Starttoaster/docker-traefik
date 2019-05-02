@@ -30,8 +30,8 @@ function ddns_setup {
 	sudo -- chmod 700 /opt/ddns
 
 	# Choose provider	
-	read -p "What DNS provider are you using? (namecheap/duckdns/godaddy/dreamhost) " -r PROVIDER
 	shopt -s nocasematch
+	read -p "What DNS provider are you using? (namecheap/duckdns/godaddy/dreamhost/cloudflare) " -r PROVIDER
 	case "${PROVIDER}" in
 		namecheap)
 			namecheap_setup
@@ -44,6 +44,9 @@ function ddns_setup {
 			;;
 		dreamhost)
 			dreamhost_setup
+			;;
+		cloudflare)
+			cloudflare_setup
 			;;
 		*)
 			echo "Invalid choice; try again."
@@ -73,13 +76,19 @@ function dreamhost_setup {
         read -p "Enter your Dynamic DNS Key: " -r KEY
         sed -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/dreamhost.config.json.tpl >/opt/ddns/config.json
 }
+function cloudflare_setup {
+	read -p "Enter your Global API Key: " -r KEY
+	read -p "Enter your Zone Id: " -r ZONEIDENT
+	read -p "Enter your Identifier: " -r IDENT
+	sed -e "s#%%IDENT%%#${IDENT}#g" -e "s#%%KEY%%#${KEY}#g" -e "s#%%ZONEIDENT%%#${ZONEIDENT}#g" -e "s#%%EMAIL%%#${EMAIL}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/cloudflare.config.json.tpl >/opt/ddns/config.json
+}
 
 #
 # Script main
 #
 setup
 
-read -p "Would you like to set up the Traefik web user interface? Not necessary but looks pretty.. (y/n)? " -r CHOICE
+read -p "Would you like to set up the Traefik web user interface? (y/n)? " -r CHOICE
 case "${CHOICE:0:1}" in
 	#Layer1-YES
 	y|Y)
