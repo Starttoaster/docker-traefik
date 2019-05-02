@@ -30,18 +30,27 @@ function ddns_setup {
 	sudo -- chmod 700 /opt/ddns
 
 	# Choose provider	
-	read -p "What DNS provider are you using? (namecheap/cloudflare) " -r PROVIDER
+	read -p "What DNS provider are you using? (namecheap/duckdns/godaddy/dreamhost) " -r PROVIDER
+	shopt -s nocasematch
 	case "${PROVIDER}" in
-		namecheap|Namecheap|nameCheap|NameCheap)
+		namecheap)
 			namecheap_setup
 			;;
-		cloudflare|Cloudflare|CloudFlare)
-			cloudflare_setup
+		duckdns)
+			duckdns_setup
+			;;
+		godaddy)
+			godaddy_setup
+			;;
+		dreamhost)
+			dreamhost_setup
 			;;
 		*)
-			echo "Invalid choice"
+			echo "Invalid choice; try again."
+			ddns_setup
 			;;
 	esac
+	shopt -u nocasematch
 
         # Read only access for config.json
 	sudo -- chmod 400 /opt/ddns/config.json
@@ -51,12 +60,18 @@ function namecheap_setup {
 	read -p "Enter your Dynamic DNS Password: " -r DNSPASS
         sed -e "s#%%DNSPASS%%#${DNSPASS}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/namecheap.config.json.tpl >/opt/ddns/config.json
 }
-
-function cloudflare_setup {
-        read -p "Enter your zone identifier: " -r ZONEIDENT
-	read -p "Enter your zone: " -r ZONE
-	read -p "Enter your user service key: " -r KEY
-        sed -e "s#%%ZONEIDENT%%#${ZONEIDENT}#g" -e "s#%%ZONE%%#${ZONE}#g" -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/namecheap.config.json.tpl >/opt/ddns/config.json
+function duckdns_setup {
+        read -p "Enter your Dynamic DNS Token: " -r TOKEN
+        sed -e "s#%%TOKEN%%#${TOKEN}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/duckdns.config.json.tpl >/opt/ddns/config.json
+}
+function godaddy_setup {
+        read -p "Enter your Dynamic DNS Key: " -r KEY
+        read -p "Enter your Dynamic DNS Secret: " -r SECRET
+        sed -e "s#%%SECRET%%#${SECRET}#g" -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/godaddy.config.json.tpl >/opt/ddns/config.json
+}
+function dreamhost_setup {
+        read -p "Enter your Dynamic DNS Key: " -r KEY
+        sed -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/dreamhost.config.json.tpl >/opt/ddns/config.json
 }
 
 #
@@ -153,8 +168,5 @@ esac
 cat <<"EOF"
 
 This script has set up your docker-compose.yml file and Traefik configuration in your /opt/traefik directory.
-It also set up an example DokuWiki container with the required Traefik labels for a subdomain in /opt/wiki.
 If you chose to configure dDNS, ensure that you have followed all instructions from the container's owner: https://github.com/qdm12/ddns-updater
-Make any necessary changes specific to you, and run 'docker-compose up -d' to start your containers.
-And thank you, Quentin McGaw (GitHub: qdm12), for the excellent dynamic DNS image.
 EOF

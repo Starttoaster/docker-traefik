@@ -1,12 +1,12 @@
 {
     "settings": [
         {
-            "provider": "cloudflare",
+            "provider": "dreamhost",
             "domain": "%%DOMAIN%%",
+            "delay": 300,
             "host": "*",
             "ip_method": "opendns",
-            "delay": 300,
-            "password": "%%DNSPASS%%"
+            "key": "%%DNSPASS%%"
         }
     ]
 }
