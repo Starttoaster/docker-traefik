@@ -5,15 +5,13 @@ While doing this I felt there was no really simple guide to achieve this result,
 
 ### Domain Registry + DNS Configuration
 
-I purchased my domain through NameCheap. Whatever domain dealer you go through, you're going to need to set up DNS records properly through them. 
+I purchased my domain through NameCheap. Whatever domain registrar you go through, you're going to need to set up DNS records properly through them. 
 I recommend NameCheap because of how simple it was, but I imagine they are all about the same. As long as the provider allows wildcard DNS records you should be good to go. 
 In NameCheap's "Advanced DNS" tab I added these:
 
 | Type | Host | Value | TTL |
 | ---- | ---- | ----- | --- |
 | A Record | `*` | IP-ADDRESS | Automatic |
-| A Record | `@` | IP-ADDRESS | Automatic |
-| A Record | `www` | IP-ADDRESS | Automatic |
 | CNAME Record | `www` | DOMAIN-NAME | Automatic |
  
 Change the values accordingly for your server's IP, and the domain you've purchased! 
@@ -76,9 +74,9 @@ Simply enter your desired username and password, then copy that string and enter
 
 ### Special Thanks
 
-To GitHub user 'qdm12' for their lightweight Dynamic DNS updating docker image. 
+To GitHub user [qdm12](https://github.com/qdm12) for their lightweight Dynamic DNS updating docker image. [qdm12/ddns-updater](https://github.com/qdm12/ddns-updater) 
 
-To GitHub user 'szepeviktor' for their contributions to this script. 
+To GitHub user [szepeviktor](https://github.com/szepeviktor) for their contributions to this script.
 
 To Miroslav Prasil for the best DokuWiki docker image on Docker Hub.
 
