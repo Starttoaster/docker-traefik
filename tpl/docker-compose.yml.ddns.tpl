@@ -43,10 +43,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /opt/ddns:/updater/data
-    labels:
-      - traefik.enable=true
-      - traefik.frontend.rule=Host:ddns.%%DOMAIN%%
+      - /opt/traefik/ddns:/updater/data
 
 networks:
    srv:

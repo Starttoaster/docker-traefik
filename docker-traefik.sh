@@ -24,11 +24,10 @@ function setup {
 
 function ddns_setup {
 	#Directory setup
-	sudo -- mkdir /opt/ddns
-	sudo -- touch /opt/ddns/config.json
-	sudo -- chown -R "$USER": /opt/ddns
-	sudo -- chmod 700 /opt/ddns
-
+	sudo -- mkdir /opt/traefik/ddns
+	sudo -- touch /opt/traefik/ddns/config.json
+	sudo -- chown -R "$USER": /opt/traefik/ddns
+	
 	# Choose provider	
 	shopt -s nocasematch
 	read -p "What DNS provider are you using? (namecheap/duckdns/godaddy/dreamhost/cloudflare) " -r PROVIDER
@@ -55,32 +54,34 @@ function ddns_setup {
 	esac
 	shopt -u nocasematch
 
-        # Read only access for config.json
-	sudo -- chmod 400 /opt/ddns/config.json
+        # Set permissions, per container owner's instructions
+        sudo -- chown -R 1000 /opt/traefik/ddns
+        sudo -- chmod 700 /opt/traefik/ddns
+	sudo -- chmod 400 /opt/traefik/ddns/config.json
 }
 
 function namecheap_setup {
 	read -p "Enter your Dynamic DNS Password: " -r DNSPASS
-        sed -e "s#%%DNSPASS%%#${DNSPASS}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/namecheap.config.json.tpl >/opt/ddns/config.json
+        sed -e "s#%%DNSPASS%%#${DNSPASS}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/namecheap.config.json.tpl >/opt/traefik/ddns/config.json
 }
 function duckdns_setup {
         read -p "Enter your Dynamic DNS Token: " -r TOKEN
-        sed -e "s#%%TOKEN%%#${TOKEN}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/duckdns.config.json.tpl >/opt/ddns/config.json
+        sed -e "s#%%TOKEN%%#${TOKEN}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/duckdns.config.json.tpl >/opt/traefik/ddns/config.json
 }
 function godaddy_setup {
         read -p "Enter your Dynamic DNS Key: " -r KEY
         read -p "Enter your Dynamic DNS Secret: " -r SECRET
-        sed -e "s#%%SECRET%%#${SECRET}#g" -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/godaddy.config.json.tpl >/opt/ddns/config.json
+        sed -e "s#%%SECRET%%#${SECRET}#g" -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/godaddy.config.json.tpl >/opt/traefik/ddns/config.json
 }
 function dreamhost_setup {
         read -p "Enter your Dynamic DNS Key: " -r KEY
-        sed -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/dreamhost.config.json.tpl >/opt/ddns/config.json
+        sed -e "s#%%KEY%%#${KEY}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/dreamhost.config.json.tpl >/opt/traefik/ddns/config.json
 }
 function cloudflare_setup {
 	read -p "Enter your Global API Key: " -r KEY
 	read -p "Enter your Zone Id: " -r ZONEIDENT
 	read -p "Enter your Identifier: " -r IDENT
-	sed -e "s#%%IDENT%%#${IDENT}#g" -e "s#%%KEY%%#${KEY}#g" -e "s#%%ZONEIDENT%%#${ZONEIDENT}#g" -e "s#%%EMAIL%%#${EMAIL}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/cloudflare.config.json.tpl >/opt/ddns/config.json
+	sed -e "s#%%IDENT%%#${IDENT}#g" -e "s#%%KEY%%#${KEY}#g" -e "s#%%ZONEIDENT%%#${ZONEIDENT}#g" -e "s#%%EMAIL%%#${EMAIL}#g" -e "s#%%DOMAIN%%#${DOMAIN}#g" ./tpl/cloudflare.config.json.tpl >/opt/traefik/ddns/config.json
 }
 
 #

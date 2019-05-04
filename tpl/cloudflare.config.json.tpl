@@ -1,7 +1,7 @@
 {
     "settings": [
         {
-            "provider": "namecheap",
+            "provider": "cloudflare",
             "domain": "%%DOMAIN%%",
             "host": "*",
             "ip_method": "opendns",
