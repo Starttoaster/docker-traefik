@@ -53,7 +53,7 @@ finish the configuration, and restart them.
 
 This is entirely optional. The Traefik dashboard offers some information about the applications behind your web proxy. I have added a conditional that allows you to automate the configuration of the web dashboard.
 You will need an 'htpasswd' which I have included a section below on how to obtain one. An htpasswd is just a username with a hashed password. See 'To generate an htpasswd' below.
-When the Traefik dashboard is configured, you will just need to enter your username and password in the dialog box that pops up at https://dash.YOUR-DOMAIN.TLD
+When the Traefik dashboard is configured, you will just need to enter your username and password in the dialog box that pops up at `https://dash.YOUR-DOMAIN.TLD`
 
 ### HTTP Basic Auth
 

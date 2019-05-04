@@ -1,13 +1,15 @@
 {
     "settings": [
         {
-            "provider": "godaddy",
+            "provider": "cloudflare",
             "domain": "%%DOMAIN%%",
             "host": "*",
             "ip_method": "opendns",
             "delay": 300,
+            "email": "%%EMAIL%%",
             "key": "%%KEY%%",
-            "secret": "%%SECRET%%"
+            "zone_identifier": "%%ZONEIDENT%%",
+            "identifier": "%%IDENT%%"
         }
     ]
 }
