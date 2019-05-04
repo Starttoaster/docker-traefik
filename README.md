@@ -39,15 +39,15 @@ ever gets rebooted and assigned a new IP from your DHCP pool.
 
 ### Home networks extra credit: Dynamic DNS
 
-Setting up "dDNS" is entirely optional. Internet service providers do not typically assign static public IP addresses to residential home users. You may find one day that your cable modem/router was 
+Setting up dynamic DNS is entirely optional. Internet service providers do not typically assign static public IP addresses to residential home users. You may find one day that your cable modem/router was 
 reset for some reason. After the modem/router came back online, it was potentially assigned a new public IP address by your ISP's DHCP. In this instance you have two options:
 
- 1. Manually find your new public IP address, (Go to: https://diagnostic.opendns.com/myip), and change the IPADDRESS sections to match your new IP address on your DNS A Records with whoever your DNS provider is. Mine being Namecheap's Basic DNS.
+ 1. Manually find your new public IP address, (Go to: https://diagnostic.opendns.com/myip), and change the IP-ADDRESS sections to match your new IP address on your DNS A Records with whoever your DNS provider is. Mine being Namecheap's Basic DNS.
 
- 2. Set up Dynamic DNS (DDNS). DDNS runs a minimal web application from within your home server that periodically sends an update of what IP address you're currently using to your DNS provider. It authenticates to the DNS provider via a passkey that is assigned by the DNS provider, and if your IP address ever receives a change the DNS provider will update their "A+ Records" automatically. I recommend following the setup instructions here: https://github.com/qdm12/ddns-updater
+ 2. Set up Dynamic DNS (DDNS). DDNS runs a minimal web application from within your home server that periodically sends an update of what IP address you're currently using to your DNS provider. It authenticates to the DNS provider via a passkey(s) that is assigned by the DNS provider, and if your IP address ever changes the DNS provider will update their A Records automatically. I recommend following the setup instructions here: https://github.com/qdm12/ddns-updater
 
-If you set up dynamic DNS via the container offered in this script, ensure that you configure it properly before running `docker-compose up -d` to bring up your containers. Otherwise you will need to stop the containers,
-finish the configuration, and restart them.
+If you set up DDNS via the container offered in this script, ensure that you have all the necessary information required by the DNS provider you are using. 
+The container supports Namecheap, Cloudflare, GoDaddy, DuckDNS, and Dreamhost. Ensure that you have all the necessary parameters for when the script asks for them by following the instructions
 
 ### Traefik Dashboard
 
