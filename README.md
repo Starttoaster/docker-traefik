@@ -47,7 +47,8 @@ reset for some reason. After the modem/router came back online, it was potential
  2. Set up Dynamic DNS (DDNS). DDNS runs a minimal web application from within your home server that periodically sends an update of what IP address you're currently using to your DNS provider. It authenticates to the DNS provider via a passkey(s) that is assigned by the DNS provider, and if your IP address ever changes the DNS provider will update their A Records automatically. I recommend following the setup instructions here: https://github.com/qdm12/ddns-updater
 
 If you set up DDNS via the container offered in this script, ensure that you have all the necessary information required by the DNS provider you are using. 
-The container supports Namecheap, Cloudflare, GoDaddy, DuckDNS, and Dreamhost. Ensure that you have all the necessary parameters for when the script asks for them by following the instructions
+The container supports Namecheap, Cloudflare, GoDaddy, DuckDNS, and Dreamhost. Ensure that you have all the necessary parameters for when the script asks for them by following the instructions with the container owner.
+If setting up Cloudflare, please see my gist on Cloudflare API calls [here](https://gist.github.com/Starttoaster/07d568c2a99ad7631dd776688c988326)
 
 ### Traefik Dashboard
 
