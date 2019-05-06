@@ -7,13 +7,11 @@ While doing this I felt there was no really simple guide to achieve this result,
 
 I purchased my domain through NameCheap. Whatever domain registrar you go through, you're going to need to set up DNS records properly through them. 
 I recommend NameCheap because of how simple it was, but they are all about the same. As long as the provider allows wildcard DNS records you should be good to go. 
-In Namecheap's "Advanced DNS" tab I only added this:
+In Namecheap's "Advanced DNS" tab I only added this, change the IP-ADDRESS value to your server's public IP address:
 
 | Type | Host | Value | TTL |
 | ---- | ---- | ----- | --- |
 | A Record | `*` | IP-ADDRESS | Automatic |
-
-Change the values accordingly for your server's IP, and the domain you've purchased! 
 
 ### Installation
 
