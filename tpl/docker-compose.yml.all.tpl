@@ -3,7 +3,7 @@ version: "2"
 services:
   # Reverse Proxy and Let's Encrypt
   traefik:
-    container_name: traefik
+    container_name: traefik:v1.7-alpine
     image: traefik:alpine
     restart: always
     networks:

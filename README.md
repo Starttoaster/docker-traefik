@@ -3,6 +3,8 @@
 This script configures a Traefik reverse proxy with LetsEncrypt certs for your public webapps. In my example, I set up a DokuWiki (excellent plain text with markdown wiki app.) 
 While doing this I felt there was no really simple guide to achieve this result, and may be a little confusing for other people, so here you go. 
 
+NOTE: This currently works with Traefik v1. Support for v2 to come soon.
+
 ### Domain Registry + DNS Configuration
 
 I purchased my domain through NameCheap. Whatever domain registrar you go through, you're going to need to set up DNS records properly through them. 
@@ -76,4 +78,3 @@ To GitHub user [qdm12](https://github.com/qdm12) for their lightweight Dynamic D
 To GitHub user [szepeviktor](https://github.com/szepeviktor) for their contributions to this script.
 
 To Miroslav Prasil for the best DokuWiki docker image on Docker Hub.
-
