@@ -27,7 +27,8 @@ In Namecheap's "Advanced DNS" tab I only added this, change the IP-ADDRESS value
 
 Once you answer a couple questions, the script should complete. If you are running on a VPS (cloud server) you should then be ready to run `docker-compose up -d` and bring up your apps.
 If you are self-hosting from home, then move on to the next sections for home networks. 
-If you want to add more or other apps to the docker-compose file, you simply need to add the labels section to each service and just change the subdomain to what you want its URL to be.
+
+If you want to add more or other apps to the docker-compose file, you need to add this labels section to each service you wish to expose, and change all instances of "dokuwiki" to the name of your container. Traefik v2 made many changes including the required labels to expose a service properly. You will also need to change the "server.port" line to the default port number exposed in the Dockerfile of the image you're using, not the one you might yourself. For instance, if you added a port section of "8080:80" you would specify "80" in the server.port line.
 
 ### For home networks and servers using private IP addresses
 
@@ -35,46 +36,3 @@ If you've done this guide on a server using a private IP address (behind some ki
 forward ports 80 and 443 to your server's private IP address. I cannot instruct on how to do this as each router has different configuration pages, but just search Google for your 
 router + "port forwarding". While you're here, also make sure your server has a statically assigned private IP. This will save a great deal of headache if your server 
 ever gets rebooted and assigned a new IP from your DHCP pool.
-
-### Home networks extra credit: Dynamic DNS
-
-Setting up dynamic DNS is entirely optional. Internet service providers do not typically assign static public IP addresses to residential home users. You may find one day that your cable modem/router was 
-reset for some reason. After the modem/router came back online, it was potentially assigned a new public IP address by your ISP's DHCP. In this instance you have two options:
-
- 1. Manually find your new public IP address, (Go to: https://diagnostic.opendns.com/myip), and change the IP-ADDRESS sections to match your new IP address on your DNS A Records with whoever your DNS provider is. Mine being Namecheap's Basic DNS.
-
- 2. Set up Dynamic DNS (DDNS). DDNS runs a minimal web application from within your home server that periodically sends an update of what IP address you're currently using to your DNS provider. It authenticates to the DNS provider via a passkey(s) that is assigned by the DNS provider, and if your IP address ever changes the DNS provider will update their A Records automatically. I recommend following the setup instructions here: https://github.com/qdm12/ddns-updater
-
-The container supports Namecheap, Cloudflare, GoDaddy, DuckDNS, and Dreamhost. Ensure that you have all the necessary parameters for when the script asks for them by following the instructions with the container owner.
-If setting up Cloudflare, please see my gist on Cloudflare API calls [here](https://gist.github.com/Starttoaster/07d568c2a99ad7631dd776688c988326).
-
-### Traefik Dashboard
-
-This is entirely optional. The Traefik dashboard offers some information about the applications behind your web proxy. I have added a conditional that allows you to automate the configuration of the web dashboard.
-You will need an 'htpasswd' which I have included a section below on how to obtain one. An htpasswd is just a username with a hashed password. See 'To generate an htpasswd' below.
-When the Traefik dashboard is configured, you will just need to enter your username and password in the dialog box that pops up at `https://dash.YOUR-DOMAIN.TLD`
-
-### HTTP Basic Auth
-
-This is entirely optional. If you would like all of your apps to have an additional layer of protection then you can configure an htpasswd in the traefik.toml file.
-An htpasswd is just a username with a hashed password. 
-I have added a conditional in the script that will configure this for you. All you need is an "htpasswd" to enter when the script asks for it.
-When you want to visit one of your webapps, you will need to enter the username and password you chose in the dialog box that pops up.
-
-#### To generate an htpasswd, either:
-
- 1. Install the 'apache2-utils' package on your linux distro, and run: `htpasswd -nb user password`
-
-Making sure to replace user with the desired username, and password with the desired password; or
-
- 2. Visit: `http://www.htaccesstools.com/htpasswd-generator/`
-
-Simply enter your desired username and password, then copy that string and enter it in the script when asked for it.
-
-### Special Thanks
-
-To GitHub user [qdm12](https://github.com/qdm12) for their lightweight Dynamic DNS updating docker image. [qdm12/ddns-updater](https://github.com/qdm12/ddns-updater) 
-
-To GitHub user [szepeviktor](https://github.com/szepeviktor) for their contributions to this script.
-
-To Miroslav Prasil for the best DokuWiki docker image on Docker Hub.
